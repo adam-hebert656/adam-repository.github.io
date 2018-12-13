@@ -37,14 +37,16 @@
             }
             nav ul {
                 list-style-image: none;
+                padding-right: 10px;
             }
             nav li {
                 display: inline-block;
                 padding: 0 10px;
-            }
-            nav a {
-                text-decoration: none;
                 color: #fff;
+            }
+            nav a{
+                color: #fff;
+                text-decoration: none;
             }
             
             /* main container area beneath menu */
@@ -67,8 +69,24 @@
                 padding: 15px;
                 color: #fff;
             }
+            .content a {
+                color: #fff;
+            }
+            .content p {
+                padding-left: 0.5em;
+                background-image: linear-gradient(to left, rgba(255,0,0,0), rgba(170,0,0,1));
+                border-left-style: solid;
+                border-color: rgb(255, 0, 0);
+            }
             .interests header {
                 font-size: 1.25em;
+            }
+            .interests li {
+                list-style-type: none;
+                background-image: linear-gradient(to left, rgba(255,0,0,0), rgba(170,0,0,1));
+                border-color: rgb(255, 0, 0);
+                border-left-style: solid;
+                padding-left: 0.5em;
             }
         </style>
     </head>
@@ -91,8 +109,7 @@
                 
                 <div class="content">
                     <header>Adam Hebert</header>
-                    
-                    <p>Bassist for Papa Watzke</p>
+                    <p>Bassist for <a href="http://www.papawatzke.bandcamp.com">Papa Watzke</a></p>
                     <section class="interests">
                         <header>Interests</header>
                         <ul>
