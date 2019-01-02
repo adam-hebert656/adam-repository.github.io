@@ -1,0 +1,111 @@
+body {
+    background: rgb(150, 0, 0);
+    color: rgb(45, 45, 45);
+    padding: 10px;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+header {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+[id=all-contents] {
+    max-width: 800px;
+    margin: auto;
+}
+
+/* navigation menu */
+nav {
+    background: rgb(35, 35, 35);
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: flex;
+    padding: 1px;
+    border: 4mm ridge rgb(170, 0, 0);
+    border-radius: 40px 10px;
+}
+nav header {
+    display: flex;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    flex: 1;
+    padding-left: 15px;
+}
+nav ul {
+    list-style-image: none;
+    padding-right: 10px;
+}
+nav li {
+    display: inline-block;
+    padding: 0 10px;
+    color: #fff;
+}
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* main container area beneath menu */
+main {
+    background: rgb(75, 75, 75);
+    display: flex;
+    padding:inherit;
+    border-radius: 10px 10px;
+}
+[class=content] {
+    flex: 1;
+    border-radius:35px;
+    padding: 15px;
+    box-sizing: border-box;
+    width: 100%;
+    color: #fff;
+}
+
+.content h2, h3, h4, h5, h6 {
+    background-image: linear-gradient(to left, rgba(255,0,0,0), rgba(170,0,0,1));
+    padding: 0.5em;
+    color: #fff;
+}
+
+.content h1 {
+    background-image: linear-gradient(to left, rgba(255,0,0,0), rgba(170,0,0,1));
+    padding: 0.5em;
+    color: #fff;
+    margin-top: 0.05em;
+}
+
+.content section > a {
+    text-decoration: none;
+}
+
+.code {
+    font-family: monospace;
+    background: #000;
+    border: 1px solid #000;
+    color: #fff;
+    white-space: pre;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.topic-heading {
+    padding-left: 50px;
+    text-transform: capitalize;
+}
+
+.line {
+    display: flex;
+    padding: 2px 0;
+    background: #444;
+}
+
+.line:nth-child(even) {
+    background: #555;
+}
+
+.line-number {
+    min-width: 40px;
+    padding-left: 5px;
+    text-align: right;
+    padding-right: 20px;
+}
