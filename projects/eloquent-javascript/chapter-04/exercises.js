@@ -169,59 +169,35 @@ function nth(list, n) {
 ////////////////////////////////////////////////////////////////////////////////
 
 function deepEqual(val1, val2) {
-  // check if both values are objects
-  if (typeof val1 === "object" && typeof val2 === "object"){
+  // if the values are already equal, return true
+  if (val1 === val2) {
+    return true;
     
-    // check if either value is null
-    if (val1 === null || val2 === null) {
-      
-      // if so, compare them to make sure they aren't both null
-      return val1 === val2;
-      
-    // if neither is null, do the deep comparison
-    } else {
-      
-      // declare two variables to hold an array of keys from the objects
-      let arr1 = Object.keys(val1);
-      let arr2 = Object.keys(val2);
-      
-      // declare a true or false variable
-      var result = true;
-      
-      // use a for loop to iterate over the first array
-      for (let i=0; i < arr1.length; i++){
-        
-        // set the value of arr1[i] to a variable
-        let arr1Value = arr1[i];
-        
-        // use a for loop to iterate over the second array
-        for (let j=0; j < arr2.length; j++) {
-          
-          // set the value of arr2[i] to a variable
-          let arr2Value = arr2[i];
-          
-          // if the two values are equal, set result to true
-          if (arr1Value === arr2Value) {
-            result = true;
-            j = arr2.length;
-          } else result = false;
-        }
-      }
-      
-      if (result === false) return false;
-      
-      else if (result === true) {
-        for (let keys in val1) {
-          
-        }
-      }
-    }
-    
-    
-  // if they are not both objects, run a normal comparison   
-  } else {
-    return val1 === val2;
+    // if either value is null or not an object, return false
+  } if (val1 == null || typeof val1 != "object" || val2 == null || typeof val2 != "object") {
+    return false;
   }
+  
+  // create two variables to store the keys of the objects
+  let keysA = Object.keys(val1); 
+  let keysB = Object.keys(val2);
+
+  // if the two arrays are different in length, return false
+  if (keysA.length != keysB.length) {
+    return false;
+  }
+  
+  // iterates through the keys in the A array
+  for (let key of keysA) {
+    
+    // if the B array does not include the key or the two values are not the same, return false
+    if (!keysB.includes(key) || !deepEqual(val1[key], val2[key])) {
+      return false;
+    }
+  }
+  
+  // if everything passes, return true
+  return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
