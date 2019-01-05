@@ -92,7 +92,7 @@ function reverseArrayInPlace(array) {
     // delete the value at i and replace it with the value at its mirror
     array.splice(i, 1, array[array.length - 1 - i]);
     
-    // add the value to the mirror position
+    // add the i value to the mirror position
     array[array.length - 1 - i] = value;
   }
   
