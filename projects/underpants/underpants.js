@@ -492,6 +492,36 @@ some: (collection, func) => {
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+reduce: (array, func, seed) => {
+    // declare a result variable
+    var result;
+    // declare a prevRes variable
+    var prev;
+    // use a for loop to iterate over the array
+    for (let i=0; i < array.length; i++) {
+    // on first iteration, use seed as previous result, unless no seed was given, then use the first value in array
+        if (i === 0) {
+            // if a seed is given
+            if (seed !== undefined) {
+                // use seed as the previous value
+                prev = func(seed, array[0], 0);
+            // if no seed is given
+            } else {
+                // use the first value in array as the previous value
+                prev = func(array[0], array[1], 1);
+                i += 1;
+            }
+        // on every iteration but the last, store the result of the func call into prev
+        } else if (i < array.length - 1) {
+            prev = func(prev, array[i], i);
+        } else if (i === array.length - 1) {
+    // store the last iteration result into result
+            result = func(prev, array[i], i);
+        }
+    }
+    // return result
+    return result;
+},
 
 /** _.extend
 * Arguments:
@@ -508,9 +538,27 @@ some: (collection, func) => {
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
 
-extend: (object1, object2) => {
+extend: function(object1, object2) {
+    // create an array of all the arguments passed to extend
+    let args = [].slice.call(arguments);
     
+    // create a variable pointing to object1
+    let resObj = object1;
+    
+    // use a for loop to iterate through the args array (skipping the first one)
+    for (let i=1; i < args.length; i++) {
+        
+    // use a for loop to iterate through the keys in each object
+        for (let key in args[i]) {
+        // copy the keys to object1
+            resObj[key] = args[i][key];
+        } 
+        
+    }
+    // return object1
+    return resObj;
 }
+
 
 };
 //////////////////////////////////////////////////////////////////////
