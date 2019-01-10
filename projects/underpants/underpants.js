@@ -144,12 +144,19 @@ last: (array, num) => {
 */
 
 indexOf: (array, value) => {
-    for (let i=0; i < array.length; i++) {
-        if (array[i] === value) {
-            return i;
+    // for (let i=0; i < array.length; i++) {
+    //     if (array[i] === value) {
+    //         return i;
+    //     }
+    // }
+    // return -1;
+    let result = -1;
+    _.each(array, (element, index, collection) => {
+        if (element === value && result === -1) {
+            result = index;
         }
-    }
-    return -1;
+    });
+    return result;
 },
 
 
@@ -169,13 +176,20 @@ indexOf: (array, value) => {
 */
 
 contains: (array, value) => {
-    let testVal;
-    for (let i=0; i < array.length; i++) {
-        if (array[i] === value) {
-            testVal = value;
+    // let testVal;
+    // for (let i=0; i < array.length; i++) {
+    //     if (array[i] === value) {
+    //         testVal = value;
+    //     }
+    // }
+    // return testVal === value ? true: false;
+    let testVal = false;
+    _.each(array, (element, index, array) => {
+        if (element === value) {
+            testVal = true;
         }
-    }
-    return testVal === value ? true: false;
+    })
+    return testVal;
 },
 
 /** _.each
@@ -217,22 +231,29 @@ each: (collection, func) => {
 */
 
 unique: (array) => {
-    // declare an empty result array
+    // // declare an empty result array
+    // let result = [];
+    // // declare an empty test/index array
+    // let indexes = [];
+    // // use a for loop to get indexOf for each element
+    // for (let i=0; i < array.length; i++) {
+    // // push the indexOf if the index array doesnt already contain that index
+    //     if (!_.contains(indexes, _.indexOf(array, array[i]))) {
+    //         indexes.push(_.indexOf(array, array[i]));
+    //     }
+    // }
+    // // use a for loop on the index array and push the value at each index into the result array
+    // for (let i=0; i < indexes.length; i++) {
+    //     result.push(array[indexes[i]]);
+    // }
+    // // return the result array
+    // return result;
     let result = [];
-    // declare an empty test/index array
-    let indexes = [];
-    // use a for loop to get indexOf for each element
-    for (let i=0; i < array.length; i++) {
-    // push the indexOf if the index array doesnt already contain that index
-        if (!_.contains(indexes, _.indexOf(array, array[i]))) {
-            indexes.push(_.indexOf(array, array[i]));
+    _.each(array, (element, index, array) => {
+        if (_.indexOf(array, element) === index) {
+            result.push(element);
         }
-    }
-    // use a for loop on the index array and push the value at each index into the result array
-    for (let i=0; i < indexes.length; i++) {
-        result.push(array[indexes[i]]);
-    }
-    // return the result array
+    });
     return result;
 },
 
@@ -254,19 +275,8 @@ unique: (array) => {
 */
 
 filter: (array, func) => {
-  // declare a result array
-  let result = [];
-  // use a for loop to iterate through given array
-  for (let i=0; i < array.length; i++) {
-  // check if the result of the function is a boolean
-      if (typeof func(array[i], i, array) === 'boolean') {
-  // call the func on each value in array and if true, push the value into the result array
-          if (func(array[i], i, array) === true) {
-              result.push(array[i]);
-          }
-      }
-  }
-  // return result array
+    let result = [];
+    _.each(array, (element, index, array) => (func(element, index, array) === true ? result.push(element): false));
     return result;
 },
 
@@ -284,18 +294,8 @@ filter: (array, func) => {
 */
 
 reject: (array, func) => {
-    // declare a result array
     let result = [];
-    // declare a testing array that comes from running _.filter on the array
-    let testing = _.filter(array, func);
-    // compare the values of the given array to the testing array
-    for (let i=0; i < array.length; i++) {
-    // push each value that isn't in the testing array into the result array
-        if (!_.contains(testing, array[i])) {
-            result.push(array[i]);
-        }
-    }
-    // return the result array
+    _.each(array, (element, index, array) => (func(element, index, array) === false ? result.push(element): false));
     return result;
 },
 
@@ -337,24 +337,28 @@ partition: (array, func) => [_.filter(array, func), _.reject(array, func)],
 */
 
 map: (collection, func) => {
-    // declare a empty result array
+    // // declare a empty result array
+    // let result = [];
+    // // check if the collection is an array
+    // if (Array.isArray(collection)) {
+    //     // loop through the array
+    //     for (let i=0; i < collection.length; i++) {
+    //         // run the function on each element and push it into the result array
+    //         result.push(func(collection[i], i, collection));
+    //     }
+    // // check if collection is an object
+    // } else if (typeof collection === 'object') {
+    //     // loop through the object keys
+    //     for (let key in collection) {
+    //         // run the function on each element and push it into the result array
+    //         result.push(func(collection[key], key, collection));
+    //     }
+    // }
+    // // return the result array
+    // return result;
+    
     let result = [];
-    // check if the collection is an array
-    if (Array.isArray(collection)) {
-        // loop through the array
-        for (let i=0; i < collection.length; i++) {
-            // run the function on each element and push it into the result array
-            result.push(func(collection[i], i, collection));
-        }
-    // check if collection is an object
-    } else if (typeof collection === 'object') {
-        // loop through the object keys
-        for (let key in collection) {
-            // run the function on each element and push it into the result array
-            result.push(func(collection[key], key, collection));
-        }
-    }
-    // return the result array
+    _.each(collection, (element, index, collection) => result.push( func(element, index, collection) ) );
     return result;
 },
 
@@ -393,33 +397,48 @@ pluck: (array, prop) => _.map(array, (obj) => obj[prop]),
 */
 
 every: (collection, func) => {
+    // if (func === undefined) {
+    //     if (Array.isArray(collection)) {
+    //         for (let i=0; i < collection.length; i++) {
+    //             if (!collection[0]) {
+    //                 return false
+    //             }
+    //         } return true;
+    //     } else if (typeof collection === 'object') {
+    //         for (let key in collection) {
+    //             if (!collection[key]) {
+    //                 return false
+    //             }
+    //         } return true;
+    //     }
+    // } else {
+    //     let result = []
+    //     if (Array.isArray(collection)) {
+    //         result = _.filter(collection, func);
+    //         return result.length === collection.length;
+    //     } else if (typeof collection === 'object') {
+    //         for (let key in collection) {
+    //             if (!func(collection[key], key, collection)) {
+    //                 return false;
+    //             }
+    //         } return true;
+    //     }
+    // }
+    let result = true;
     if (func === undefined) {
-        if (Array.isArray(collection)) {
-            for (let i=0; i < collection.length; i++) {
-                if (!collection[0]) {
-                    return false
-                }
-            } return true;
-        } else if (typeof collection === 'object') {
-            for (let key in collection) {
-                if (!collection[key]) {
-                    return false
-                }
-            } return true;
-        }
+        _.each(collection, (element) => {
+            if (!element) {
+                result = false;
+            }
+        });
     } else {
-        let result = []
-        if (Array.isArray(collection)) {
-            result = _.filter(collection, func);
-            return result.length === collection.length;
-        } else if (typeof collection === 'object') {
-            for (let key in collection) {
-                if (!func(collection[key], key, collection)) {
-                    return false;
-                }
-            } return true;
-        }
+        _.each(collection, (element, index, collection) => {
+            if (!func(element, index, collection)) {
+                result = false;
+            }
+        });
     }
+    return result;
 },
 
 /** _.some
@@ -444,33 +463,48 @@ every: (collection, func) => {
 */
 
 some: (collection, func) => {
+    // if (func === undefined) {
+    //     if (Array.isArray(collection)) {
+    //         for (let i=0; i < collection.length; i++) {
+    //             if (collection[0]) {
+    //                 return true
+    //             }
+    //         } return false;
+    //     } else if (typeof collection === 'object') {
+    //         for (let key in collection) {
+    //             if (collection[key]) {
+    //                 return true
+    //             }
+    //         } return false;
+    //     }
+    // } else {
+    //     let result = []
+    //     if (Array.isArray(collection)) {
+    //         result = _.filter(collection, func);
+    //         return result.length !== 0;
+    //     } else if (typeof collection === 'object') {
+    //         for (let key in collection) {
+    //             if (func(collection[key], key, collection)) {
+    //                 return true;
+    //             }
+    //         } return false;
+    //     }
+    // }
+    let result = false;
     if (func === undefined) {
-        if (Array.isArray(collection)) {
-            for (let i=0; i < collection.length; i++) {
-                if (collection[0]) {
-                    return true
-                }
-            } return false;
-        } else if (typeof collection === 'object') {
-            for (let key in collection) {
-                if (collection[key]) {
-                    return true
-                }
-            } return false;
-        }
+        _.each(collection, (element) => {
+            if (element) {
+                result = true;
+            }
+        });
     } else {
-        let result = []
-        if (Array.isArray(collection)) {
-            result = _.filter(collection, func);
-            return result.length !== 0;
-        } else if (typeof collection === 'object') {
-            for (let key in collection) {
-                if (func(collection[key], key, collection)) {
-                    return true;
-                }
-            } return false;
-        }
+        _.each(collection, (element, index, collection) => {
+            if (func(element, index, collection)) {
+                result = true;
+            }
+        });
     }
+    return result;
 },
 
 /** _.reduce
@@ -493,33 +527,51 @@ some: (collection, func) => {
 */
 
 reduce: (array, func, seed) => {
-    // declare a result variable
+    // // declare a result variable
+    // var result;
+    // // declare a prevRes variable
+    // var prev;
+    // // use a for loop to iterate over the array
+    // for (let i=0; i < array.length; i++) {
+    // // on first iteration, use seed as previous result, unless no seed was given, then use the first value in array
+    //     if (i === 0) {
+    //         // if a seed is given
+    //         if (seed !== undefined) {
+    //             // use seed as the previous value
+    //             prev = func(seed, array[0], 0);
+    //         // if no seed is given
+    //         } else {
+    //             // use the first value in array as the previous value
+    //             prev = func(array[0], array[1], 1);
+    //             i += 1;
+    //         }
+    //     // on every iteration but the last, store the result of the func call into prev
+    //     } else if (i < array.length - 1) {
+    //         prev = func(prev, array[i], i);
+    //     } else if (i === array.length - 1) {
+    // // store the last iteration result into result
+    //         result = func(prev, array[i], i);
+    //     }
+    // }
+    // // return result
+    // return result;
     var result;
-    // declare a prevRes variable
     var prev;
-    // use a for loop to iterate over the array
-    for (let i=0; i < array.length; i++) {
-    // on first iteration, use seed as previous result, unless no seed was given, then use the first value in array
-        if (i === 0) {
-            // if a seed is given
-            if (seed !== undefined) {
-                // use seed as the previous value
-                prev = func(seed, array[0], 0);
-            // if no seed is given
-            } else {
-                // use the first value in array as the previous value
-                prev = func(array[0], array[1], 1);
-                i += 1;
+    if (seed !== undefined) {
+        prev = seed;
+        _.each(array, (element, index, array) => {
+            prev = func(prev, element, index);
+        });
+        result = prev;
+    } else {
+        prev = array[0];
+        _.each(array, (element, index, array) => {
+            if (element !== array[0]) {
+                prev = func(prev, element, index);
             }
-        // on every iteration but the last, store the result of the func call into prev
-        } else if (i < array.length - 1) {
-            prev = func(prev, array[i], i);
-        } else if (i === array.length - 1) {
-    // store the last iteration result into result
-            result = func(prev, array[i], i);
-        }
+        });
+        result = prev;
     }
-    // return result
     return result;
 },
 
@@ -539,23 +591,32 @@ reduce: (array, func, seed) => {
 */
 
 extend: function(object1, object2) {
-    // create an array of all the arguments passed to extend
+    // // create an array of all the arguments passed to extend
+    // let args = [].slice.call(arguments);
+    
+    // // create a variable pointing to object1
+    // let resObj = object1;
+    
+    // // use a for loop to iterate through the args array (skipping the first one)
+    // for (let i=1; i < args.length; i++) {
+        
+    // // use a for loop to iterate through the keys in each object
+    //     for (let key in args[i]) {
+    //     // copy the keys to object1
+    //         resObj[key] = args[i][key];
+    //     } 
+        
+    // }
+    // // return object1
+    // return resObj;
+    
     let args = [].slice.call(arguments);
-    
-    // create a variable pointing to object1
     let resObj = object1;
-    
-    // use a for loop to iterate through the args array (skipping the first one)
-    for (let i=1; i < args.length; i++) {
-        
-    // use a for loop to iterate through the keys in each object
-        for (let key in args[i]) {
-        // copy the keys to object1
-            resObj[key] = args[i][key];
-        } 
-        
-    }
-    // return object1
+    _.each(args, (element, index, collection) => {
+        _.each(element, (element, key, collection) => {
+            resObj[key] = element;
+        });
+    });
     return resObj;
 }
 
