@@ -54,7 +54,7 @@ var camelCase;
  * let declares a varible in a similar way to var, and can be reassigned the same way.
  *
  * HOWEVER, variables defined with let are NOT hoisted to the top of a function, and are 
- * instead block-scoped, meaning they can only be accessed with in the block they are defined.
+ * instead block-scoped, meaning they can only be accessed within the block they are defined.
  * (A block is the code within a function, or if statement, or while statement, etc.)
  *
  * You can declare a variable with let like this:

@@ -180,7 +180,7 @@ describe('Let\'s Get Functional', function(){
     });
 
     it('should return an array', function () {
-      const test = friendsCount(data, "Olga Newton");
+      const test = friendsCount(data, 'Doyle Erickson');
       const result = Array.isArray(test);
       expect(result).to.be.true;
     });
@@ -194,7 +194,6 @@ describe('Let\'s Get Functional', function(){
     it('should find all customers that are friends with Olga Newton', function () {
       const result = friendsCount(data, 'Olga Newton').sort();
       const friends =  [ 'Doris Smith', 'Doyle Erickson' ];
-      console.log(result);
       expect(result).to.eql(friends);
     });
 
@@ -236,7 +235,6 @@ describe('Let\'s Get Functional', function(){
       let tags = 0;
       const result = topThreeTags(data).sort();
       const topTags = [ 'Lorem', 'aliqua', 'veniam' ];
-
       expect(result).to.eql(topTags);
     });
   });

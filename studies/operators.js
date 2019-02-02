@@ -28,16 +28,6 @@
  2 % 2; // Evaluates to 0
  3 & 2; // Evaluates to 1
  
- // Increment: ++
- // Adds 1 to a value
- var value = 42;
- value++; // Evaluates to 43
- 
- // Decrement: --
- // Subtracts 1 to a value
- var value2 = 42;
- value2--; // Evaluates to 41
- 
  // Assignment Operators
  // These operators are used to assign values to a variable
  
@@ -65,16 +55,32 @@
  // This does the same thing as modulus, and then assigns the remainder to the variable
  value3 %= 3; // value3 is now 0
  
+ /* The next two operators can be consider both assignment and arithmetic operators,
+     since they do both at the same time. */
+ 
+ // Increment: ++
+ // Adds 1 to a value and then assigns the sum to the variable.
+ var value = 42;
+ value++; // Evaluates to 43
+ 
+ // Decrement: --
+ // Subtracts 1 to a value and then assigns the difference to the variable.
+ var value2 = 42;
+ value2--; // Evaluates to 41
  
  // Comparison Operators
- // These operators are used to compare two values and return a boolean
+ /** These operators compare two values in some way and then resolve into a boolean.
+  * They do not "return" a value because, as an expression, the interpreter evaluates
+  * the expression and then resolves it to a boolean. In a sense, the expression can
+  * be seen as representing the primative value.
+  */
  
  // (loose) Equal to: ==
- // This checks if the two values are equal.
- // NOTE: DO NOT USE THIS UNLESS YOU KNOW WHAT YOU ARE DOING. 
- // LOOSE EQUALS WILL COERCE THE VALUES INTO THE SAME DATA TYPE
- // POTENTIALLY CAUSING UNFORSEEN CONSEQUENCES
- // FOR MOST THINGS, USE STRICT EQUALS
+ /** This checks if the two values are equal. If they are not the same data type, 
+  *  the interepreter will attempt to coerce the values into the same data type.
+  *  This can lead to many unforseen errors if you're not careful.
+  */
+ 
  42 == 6; // Evaluates to false
  "42" == 42; // Evaluates to true
  
@@ -83,9 +89,10 @@
  32 === 32; // Evaluates to true
  
  // (loose) Not equal: !=
- // This checks if the two values are NOT equal
- // NOTE: THIS OPERATOR HAS THE SAME ISSUES AS LOOSE EQUALS
- // FOR MOST THINGS, USE STRICT NOT EQUALS
+ /** This checks if the two values are NOT equal. If they are not the same data type, 
+  *  the interepreter will attempt to coerce the values into the same data type.
+  *  This can lead to many unforseen errors if you're not careful.
+  */
  55 != 65; // Evaluates to true
  "55" != 55; // Evaluates to false
  
@@ -155,8 +162,17 @@
  
  // instanceof
  // Returns true or false depending on if the specified object is an instance of an object type
- // ENTER EXAMPLE HERE
- 
+function Band(name, members, genre) {
+ this.name = name;
+ this.members = members;
+ this.genre;
+}
+
+var papaWatzke = new Band("Papa Watzke", ["Adam", "Luke", "Chris"], "???");
+
+papaWatzke instanceof Band; //evaluates to true
+poppaWatake instanceof Band; //evaluates to false
+
  // Unary negation: -x
  // This returns the negation of the variable
  var myVar = 6

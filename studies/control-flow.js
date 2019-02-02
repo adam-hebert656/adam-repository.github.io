@@ -1,6 +1,16 @@
-/*
- * Control flow is the act of using conditional statements to determine how a program flows
- * We can do this using a few different types of statements
+/**
+ * Control flow is the act of using conditional statements and dynamic variables
+ * to determine how a program flows. A program is read line-by-line, however
+ * certain statements and keywords will allow the program to jump back and forwards
+ * through the code to other lines in other parts of the code. 
+ *
+ * Some examples of ways to manipulate control flow include:
+ * -Code blocks: These allow you to group statements to either use and reuse later
+ *               or to execute (or prevent) code if a certain condition is met.
+ * -Conditional Statements: These statments check if a condition is true or false
+ *                          and then execute a code block accordingly.
+ * 
+ * There are a few different types of conditional statements:
  */
 
 /*
@@ -51,7 +61,10 @@ if (45 >= 23) {
  * SWITCH STATEMENTS
  *
  * We can also use switch statements to set a specific list of conditions.
- *
+ * Switch statements are similar to an if statement but they do not check for 
+ * booleans. They instead check for specific values against a list of cases, 
+ * and then run the code set to that specific case.
+ * This can be really useful when you know exactly what you should be testing for.
  * e.g.
  */
 var test = "Adam";

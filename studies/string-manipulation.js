@@ -62,3 +62,26 @@ var toTrim = "              I'm Adam          ";
 toTrim.trim(); // Evaluates to "I'm Adam"
 
 // There are MANY MANY more methods for strings, but these are just some of the basics
+
+/**
+ * You can also change strings into numbers by using either parseInt() or parseFloat()
+ * e.g.
+ */
+ 
+ let number = parseInt("43"); //number will now equal the number 43
+ let float = parseFloat("1.5"); // number will now equal the floating point number 1.5
+ 
+ /**
+  * Individual characters can be accessed in strings using brackets.
+  * e.g.
+  */
+  let stringyBoy = "Stringy Boy";
+  let char3 = stringyBoy[2]; // char3 will now equal "r"
+  
+  /**
+   * Some reasons you may need to manipulate strings include:
+   * -Dynamically creating URL slugs for websites
+   * -Putting two strings toLowerCase in order to dynamically compare them.
+   * -Fixing a user's bad grammatical skills.
+   * etc.
+   */

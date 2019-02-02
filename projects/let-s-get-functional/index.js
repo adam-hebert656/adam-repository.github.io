@@ -20,13 +20,18 @@ var _ = require("lodown-adam-hebert");
  */
 
 var maleCount = function(array) {
-    let maleArray = _.filter(array, (element, index, array) => element.gender === "male");
+    let maleArray = _.filter(array, (element) => element.gender === "male");
     return maleArray.length;
 };
 
 var femaleCount = function(array) {
-  let femaleArray = _.filter(array, (element, index, array) => element.gender === "female");
-  return femaleArray.length;
+    let females = _.reduce(array, (count, element) => {
+        if (element["gender"] === "female") {
+            count += 1;
+        }
+        return count;
+    }, 0);
+    return females;
 };
 
 var oldestCustomer = function(array) {
@@ -55,31 +60,16 @@ var youngestCustomer = function(array) {
 
 var averageBalance = function(array) {
     // declare an empty array to store every customer's balance
-    let balanceArray = [];
-    // declare a result variable
-    let result;
-    // use each on the given array to push every customer's balance into the balance array
-    _.each(array, (element, index, collection) => {
-        balanceArray.push(element.balance);
-    });
-    // use each on the balance array to remove the special characters from the balance strings
-    _.each(balanceArray, (element, index, collection) => {
-        balanceArray[index] = element.replace(/[^a-zA-Z0-9.]/g, "");
-    });
-    // use each on the balance array to convert all the strings to numbers
-    _.each(balanceArray, (element, index, collection) => {
-       balanceArray[index] = parseFloat(element, 10);
-    });
-    // get an average of all the numbers in the balance array
-    result = _.reduce(balanceArray, (prev, element, index) => {
+    let balanceArray = _.pluck(array, "balance");
+    return _.reduce(balanceArray, (prev, element, index) => {
+        balanceArray[index] = parseFloat(element.replace(/[^a-zA-Z0-9.]/g, ""), 10);
         if (index === balanceArray.length - 1) {
-            prev += element;
-            return result = prev / balanceArray.length;
+            prev += balanceArray[index];
+            return prev / balanceArray.length;
         } else {
-            return prev += element;
+            return prev += balanceArray[index];
         }
     }, 0);
-    return result;
 };
 
 var firstLetterCount = function(customersArray, letterToTest) {
@@ -106,7 +96,7 @@ var friendsCount = function(customersArray, customerToTest) {
     let result = [];
     _.each(customersArray, (customer, index, array) => {
         _.each(customer.friends, (friend, index, array) => {
-            if(friend.name.toLowerCase() === customerToTest.toLowerCase()) {
+            if(friend.name === customerToTest) {
                 result.push(customer.name);
             }
         });
@@ -114,9 +104,56 @@ var friendsCount = function(customersArray, customerToTest) {
     return result;
 };
 
-var topThreeTags;
+var topThreeTags = function(customersArray) {
+    // create a counts object
+    let counts = {};
+    // create a top3 array
+    let topThree = [];
+    // create a greatest varaible
+    let greatest = 0;
+    // create a greatestName variable
+    let greatestName;
+    // take a count of all tags
+        // iterate through the customers array
+    _.each(customersArray, (customer, index, array) => {
+        // for each customer object, iterate through the customer's tags array
+        _.each(customer.tags, (tag, index, array) => {
+        // for each tag in the tags array, += 1 to the relevent key in the counts object
+            if (isNaN(counts[tag])) {
+                counts[tag] = 1;
+            } else {
+                counts[tag] += 1;
+            }
+        });
+    });
+    // iterate through the counts object
+    function findGreatest(iterations) {
+    // find the greatest count, add the name to the top3 array, delete the key in the object
+        if (iterations > 0) {
+            _.each(counts, (count, tag, object) => {
+                if (count >= greatest) {
+                    greatest = count;
+                    greatestName = tag;
+                }
+            });
+         topThree.push(greatestName);
+         delete counts[greatestName];
+         greatest = 0;
+         findGreatest(iterations - 1);
+        } 
+    }
+    findGreatest(3);
+    // return the top3 array
+    return topThree;
+};
 
-var genderCount;
+var genderCount = function(customersArray) {
+  let counts = {male: 0, female: 0, transgender: 0};
+  _.each(customersArray, (customer, index, array) => {
+      counts[customer.gender] += 1;
+  });
+  return counts;
+};
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////

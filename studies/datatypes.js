@@ -67,11 +67,16 @@ console.log(array); // Prints [63, 45, 47]
 console.log(copy); // Prints [63, 45, 47]
 
 
-// There are two more special data types: Infinity and -Infinity
-// Infinity is a global property that represents the mathematical concept of infinity
-// -Infinity is the same, but representing negative infinity
-// These are displayed with a number passes the built-in limit for float-point numbers
-// The limit being: 1.797693134862315E+308 (or - 1.797693134862315E+308 for negative)
-// Or also displayed with a number passes Number.MAX_VALUE, which is 1.79E+308
-// These act the same as their real-world mathematical concepts
-// i.e. any number multiplied by infinity is infinity
+/** 
+ * There are two more special data types: Infinity and -Infinity.
+ * 
+ * Infinity is a global property that represents the mathematical concept of infinity.
+ * -Infinity is the same, but representing negative infinity.
+ * 
+ * These are displayed when a number passes the built-in limit for float-point numbers,
+ * (the limit being: 1.797693134862315E+308 (or - 1.797693134862315E+308 for negative)
+ * or also displayed when a number passes Number.MAX_VALUE, which is 1.79E+308.
+ * 
+ * These act essentially the same as their real-world mathematical concepts.
+ * i.e. any number multiplied by infinity is infinity
+ */

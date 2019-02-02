@@ -1,32 +1,46 @@
-// Loops are used to execute a block of code n number of times (n being anything)
-// They are used to iterate over arrays or objects etc.
-// There are three basic types of loops in Javascript
-// for loop, for-in loop, and while loop
+/**
+ * Loops are used to execute a block of code a number of times. 
+ * They are used to iterate over arrays or objects etc.
+ * here are three basic types of loops in Javascript:
+ * for loop, for-in loop, and while loop.
+ */
 
 // FOR LOOP
-// A for loop has 3 parts
-// 1. Variable declaration
-// 2. Stopping condition
-// 3. Iteration
-// e.g.
+/** 
+ * A for loop iterates over an array by initializing and incrementing (or decrementing)
+ * a variable, and using that variable to access the indexes of an array dynamically.
+ */
+/** 
+ * A for loop has 3 parts:
+ * 1. Variable declaration
+ * 2. Stopping condition
+ * 3. Iteration
+ * 
+ * e.g.
+ */
 
 // FORWARDS
 for (let i=0; i < 10; i++) {
     console.log('This is the count:', i);
 }
-// In this example, let i=0 declares a variable i to start at 0
-// The stopping condition is i being equal to or greater than 10
-// The iteration is i++, which adds 1 to i
-// This loop will print a count up to 9, because it stops once i = 10
+/** 
+ * In this example, let i=0 declares a variable i to start at 0.
+ * The stopping condition is i being equal to or greater than 10.
+ * The iteration is i++, which adds 1 to i.
+ * 
+ * This loop will print a count up to 9, because it stops once i = 10
+ */
 
 // BACKWARDS
 for (let i=100; i >= 0; i--){
     console.log('This is the count:', i);
 }
-// In this example, let i=100 declares a variable i to start at 100
-// The stopping condition is i being less than 0
-// The iteration is i--, which subtracts 1 from i
-// This loop will print a count from 100 to 0
+/**
+ * In this example, let i=100 declares a variable i to start at 100.
+ * The stopping condition is i being less than 0.
+ * The iteration is i--, which subtracts 1 from i.
+ * This loop will print a count from 100 to 0.
+ */
 
 // For loops are great for iterating over the values in arrays
 // e.g.
@@ -52,3 +66,18 @@ for (let key in object) { // "key" is just a placeholder for the properties in t
     console.log(key);
 }
 
+// WHILE LOOP
+/**
+ * A while loop will continue to run WHILE a condition is true. This comes with
+ * a caveat. You MUST set some way for the while loop to end, otherwise you will
+ * end up running the loop INFINITELY!!!
+ */
+ 
+ // e.g.;
+ var whileCondition = 10;
+ 
+ while (whileCondition > 0) {
+     console.log(whileCondition);
+     whileCondition--; // This will change the variable that is being checked
+                       // so that you do not have an infinite loop.
+ }

@@ -24,7 +24,8 @@ function fizzBuzz(start, end) {
     // If the number is a multiple of 5, print "Buzz"
         else if (i % 5 === 0) console.log("buzz")
     // Otherwise, print the number
-        else console.log (i);
+        else console.log (i
+        );
     }
 }
 
